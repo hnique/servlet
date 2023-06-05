@@ -56,11 +56,30 @@
 	    } 
 	};
 	list.add(map);
-	
-	request.getParameter("id");
+%>
+
+<%
+	// 태그에 보여줄 책 정보 하나 뽑아내기
+	int id = Integer.parseInt(request.getParameter("id"));
+	Map<String, Object> target = new HashMap<>();
+	for (Map<String, Object> item : list) {
+		if ((int)item.get("id") == id) {
+			target = item;
+			break;
+		}
+	}
 %>
 	<div class="container">
-		<!-- 테스트 주석 추가 -->
+		<div class="d-flex">
+			<div>
+				<img src="<%= target.get("image") %>" alt="표지" width="300">
+			</div>
+			<div>
+				<span class="d-block display-1 font-weight-bold"><%= target.get("title") %></span>
+				<span class="display-3 text-info"><%= target.get("author") %></span>
+				<div class="display-4 text-secondary"><%= target.get("publisher") %></div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
